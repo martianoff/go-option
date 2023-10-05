@@ -11,17 +11,17 @@ The idea is based on Scala Option and Java Optional. The package allows to creat
 
 Set an non-empty value:
 ```
-option.Some[T](v) 
+option.Some[int](10) 
 ```
 
 Set an empty value:
 ```
-v := option.None[T]() 
+v := option.None[int]() 
 ```
 
 Set an empty value if v is nil, otherwise set non-empty value
 ```
-v := option.NewOption[T](v)
+v := option.NewOption[int](10)
 ```
 
 Remap one option to another option
