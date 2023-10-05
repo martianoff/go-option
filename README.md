@@ -1,4 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/maksimru/go-option/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/maksimru/go-option/tree/master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/maksimru/go-option/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/maksimru/go-option/tree/main)
 [![codecov](https://codecov.io/gh/maksimru/go-option/graph/badge.svg?token=NQICPHBEUQ)](https://codecov.io/gh/maksimru/go-option)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/maksimru/go-option)](https://pkg.go.dev/github.com/maksimru/go-option)
 [![Go Report Card](https://goreportcard.com/badge/github.com/maksimru/go-option)](https://goreportcard.com/report/github.com/maksimru/go-option)
