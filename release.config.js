@@ -1,7 +1,3 @@
-const releaseNotesGenOptions = {
-    "preset": "conventionalcommits",
-};
-
 const gitOptions = {
     "assets": [
     ],
@@ -19,11 +15,12 @@ module.exports = {
         {name: 'alpha', prerelease: true}
     ],
     "plugins": [
-        "@semantic-release/commit-analyzer",
-        [
-            "@semantic-release/release-notes-generator",
-            releaseNotesGenOptions
-        ],
+        ["@semantic-release/commit-analyzer", {
+            "preset": "conventionalcommits"
+        }],
+        ["@semantic-release/release-notes-generator", {
+            "preset": "conventionalcommits"
+        }],
         "@semantic-release/changelog",
         "@semantic-release/github",
         [
