@@ -9,13 +9,13 @@ The idea is based on Scala Option and Java Optional. The package allows to creat
 
 ## Features
 
-- *Optional Values:* This module introduces the Option[T] type, which represents optional values. An Option[T] either contains a value of type T (represented as Some(T)) or no value at all (represented as None).
-- *Safe Handling of Missing Values:* The Option[T] type encourages safer handling of missing values, avoiding null pointer dereferences. It can be checked for its state (whether it's Some or None) before usage, ensuring that no nil value is being accessed.
-- *Functional Methods:* The module provides functional methods such as Map, FlatMap etc. that make operations on Option[T] type instances easy, clear, and less error-prone.
-- *Pattern Matching:* The Match function allows for clean and efficient handling of Option[T] instances. Depending on whether the Option[T] is Some or None, corresponding function passed to Match get executed, which makes the code expressive and maintains safety.
-- *Equality Check:* The Equal method provides an efficient way to compare two Option[T] instances, checking if they represent the same state and hold equal values.
-- *Generics-Based:* With Generics introduced in Go, the module offers a powerful, type-safe alternative to previous ways of handling optional values.
-- *Json serialization and deserialization:* Build-in json support
+- **Optional Values:** This module introduces the Option[T] type, which represents optional values. An Option[T] either contains a value of type T (represented as Some(T)) or no value at all (represented as None).
+- **Safe Handling of Missing Values:** The Option[T] type encourages safer handling of missing values, avoiding null pointer dereferences. It can be checked for its state (whether it's Some or None) before usage, ensuring that no nil value is being accessed.
+- **Functional Methods:** The module provides functional methods such as Map, FlatMap etc. that make operations on Option[T] type instances easy, clear, and less error-prone.
+- **Pattern Matching:** The Match function allows for clean and efficient handling of Option[T] instances. Depending on whether the Option[T] is Some or None, corresponding function passed to Match get executed, which makes the code expressive and maintains safety.
+- **Equality Check:** The Equal method provides an efficient way to compare two Option[T] instances, checking if they represent the same state and hold equal values.
+- **Generics-Based:** With Generics introduced in Go, the module offers a powerful, type-safe alternative to previous ways of handling optional values.
+- **Json serialization and deserialization:** Build-in json support
 
 ## Example
 
