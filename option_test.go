@@ -178,6 +178,12 @@ func TestOptionEqual(t *testing.T) {
 			expected: true,
 		},
 		{
+			name:     "Both options are None with implicit type, should be equal",
+			x:        None[T](),
+			y:        None[T](),
+			expected: true,
+		},
+		{
 			name:     "One is None, one is Some, should not be equal",
 			x:        None[T](),
 			y:        Some[T](1),
@@ -187,6 +193,12 @@ func TestOptionEqual(t *testing.T) {
 			name:     "Both are Some and same value, should be equal",
 			x:        Some[T](1),
 			y:        Some[T](1),
+			expected: true,
+		},
+		{
+			name:     "Both are Some and same value with implicit type, should be equal",
+			x:        Some[T](1),
+			y:        Some(1),
 			expected: true,
 		},
 		{

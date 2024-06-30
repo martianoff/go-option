@@ -23,7 +23,7 @@ func None[T any]() Option[T] {
 }
 
 func Some[T any](o T) Option[T] {
-	return NewOption(o)
+	return Option[T]{optSome[T]{o}}
 }
 
 func NewOption[T any](o T) Option[T] {

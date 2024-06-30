@@ -5,13 +5,86 @@
 
 # Go Option
 
-The idea is based on Scala Option and Java Optional. The package allows to create optional values in Golang
+The idea is based on Scala Option and Java Optional. The package allows to create optional values in Golang. This unlocks composition of option values that makes code much cleaner.
+
+## Example
+
+Let's check an example without using option,
+
+```
+type userModel struct {
+	carModel *carModel
+}
+
+type carModel struct {
+	name        string
+	plateNumber *string
+}
+
+type User struct {
+	car *Car
+}
+
+type Car struct {
+	name           string
+	hasPlateNumber bool
+}
+
+func getUser(user userModel) User {
+	if user.carModel != nil {
+		hasPlateNumber := false
+		if user.carModel.plateNumber != nil {
+			hasPlateNumber = true
+		}
+		return User{car: &Car{
+			name:           user.carModel.name,
+			hasPlateNumber: hasPlateNumber,
+		}}
+	}
+	return User{car: nil}
+}
+```
+
+Now the same code with option
+
+``` 
+type userModel struct {
+	carModel Option[carModel]
+}
+
+type carModel struct {
+	name        string
+	plateNumber Option[string]
+}
+
+type User struct {
+	car Option[Car]
+}
+
+type Car struct {
+	name           string
+	hasPlateNumber bool
+}
+
+func getUser(user userModel) User {
+	return User{
+		car: Map[carModel, Car](user.carModel, func(model carModel) Car {
+		    // if model is Some[carModel], transform it to Some[Car]
+			return Car{
+				name:           model.name,
+				hasPlateNumber: model.plateNumber.NonEmpty(),
+			}
+		}),
+	}
+}
+```
 
 ## Functions
 
-Set an non-empty value:
+Set a non-empty value:
 ```
-option.Some[int](10) 
+option.Some[int](10)
+option.Some(10) // short style
 ```
 
 Set an empty value:
@@ -22,12 +95,14 @@ v := option.None[int]()
 Set an empty value if v is nil, otherwise set non-empty value
 ```
 v := option.NewOption[int](10)
+v := option.NewOption(10) // short style
 ```
 
 Convert pointer to an object to an option
 ```
 v := option.NewOptionFromPointer[Car](nil) // None[Car]
 v := option.NewOptionFromPointer[Car](&Car{}) // Some[Car]
+v := option.NewOptionFromPointer(&Car{}) // Some[Car] // short style
 ```
 
 Transform underlying value of option to non option value
