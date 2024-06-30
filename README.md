@@ -19,7 +19,7 @@ The idea is based on Scala Option and Java Optional. The package allows to creat
 
 ## Example
 
-Let's check an example without using option,
+Let's check an example without using options
 
 ```
 type userModel struct {
@@ -55,7 +55,7 @@ func getUser(user userModel) User {
 }
 ```
 
-Now the same code with option
+Now the same code with options
 
 ``` 
 type userModel struct {
@@ -115,7 +115,7 @@ v := option.NewOptionFromPointer[Car](&Car{}) // Some[Car]
 v := option.NewOptionFromPointer(&Car{}) // Some[Car] // short style
 ```
 
-Transform underlying value of option to non option value
+**Map**: Option transformation. Transform underlying value of option to another non option value
 ```
 import "github.com/martianoff/go-option"
 
@@ -136,7 +136,7 @@ carNameOpt := option.Map[Car, string](carOpt, func(c Car) string {
 })
 ```
 
-Option composition. Transform underlying value of option to another option value
+**FlatMap:** Option composition. Transform underlying value of option to another option value and flat them to an option
 ```
 import "github.com/martianoff/go-option"
 
@@ -180,7 +180,11 @@ carPlateOpt := option.FlatMap[Car, string](u.car, func(c Car) option.Option[stri
 
 ## Pattern matching
 
-Pattern matching in this context is the ability to check and manipulate the value inside the Option[T] type safely without having to manually check the existence of the value every time.
+Pattern matching is the ability to check and manipulate the value inside the Option[T] type safely without having to manually check the existence of the value every time. It likens to 'pattern matching'
+
+The Match function  takes three parameters: Option[T1], and two functions (func(T1) T2).feature found in traditional functional languages. This function behaves differently depending on whether the given Option[T1] is Some or None:
+- If Option[T1] contains a value (or, in other words, it's a Some), the function applies the first provided function func(T1) T2 on this value, aiming to transform it into a new T2 type value.
+- If Option[T1] is None, meaning it does not contain a value, the second provided function func(T1) T2 is applied. Typically, this function should handle the case when no value is present, e.g., by providing a default value, handling an error, etc.
 
 ``` 
 func getCarPlate(plateNumber Option[string]) string {
