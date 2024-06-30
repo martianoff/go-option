@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// UnmarshalJSON - custom JSON unmarshalling for Option
 func (opt *Option[T]) UnmarshalJSON(data []byte) error {
 	if strings.ToLower(string(data)) == "null" {
 		*opt = Option[T]{None[T]()}
@@ -18,6 +19,7 @@ func (opt *Option[T]) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON - custom JSON marshalling for Option
 func (opt Option[T]) MarshalJSON() ([]byte, error) {
 	if opt.Empty() {
 		return json.Marshal(nil)

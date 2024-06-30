@@ -218,3 +218,41 @@ func TestOptionEqual(t *testing.T) {
 		})
 	}
 }
+
+func TestMatch(t *testing.T) {
+	type T1 = int
+	type T2 = string
+
+	cases := []struct {
+		name     string
+		actual   T2
+		expected T2
+	}{
+		{
+			name: "Test Match method with Some value",
+			actual: Match(Some(1), func(v T1) T2 {
+				return "Some"
+			}, func() T2 {
+				return "None"
+			}),
+			expected: "Some",
+		},
+		{
+			name: "Test Match method with None value",
+			actual: Match(None[T1](), func(v T1) T2 {
+				return "Some"
+			}, func() T2 {
+				return "None"
+			}),
+			expected: "None",
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.actual != tc.expected {
+				t.Errorf("Match() = %v, want %v", tc.actual, tc.expected)
+			}
+		})
+	}
+}

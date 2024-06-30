@@ -5,7 +5,17 @@
 
 # Go Option
 
-The idea is based on Scala Option and Java Optional. The package allows to create optional values in Golang. This unlocks composition of option values that makes code much cleaner.
+The idea is based on Scala Option and Java Optional. The package allows to create optional values in Golang. 
+
+## Features
+
+- *Optional Values:* This module introduces the Option[T] type, which represents optional values. An Option[T] either contains a value of type T (represented as Some(T)) or no value at all (represented as None).
+- *Safe Handling of Missing Values:* The Option[T] type encourages safer handling of missing values, avoiding null pointer dereferences. It can be checked for its state (whether it's Some or None) before usage, ensuring that no nil value is being accessed.
+- *Functional Methods:* The module provides functional methods such as Map, FlatMap etc. that make operations on Option[T] type instances easy, clear, and less error-prone.
+- *Pattern Matching:* The Match function allows for clean and efficient handling of Option[T] instances. Depending on whether the Option[T] is Some or None, corresponding function passed to Match get executed, which makes the code expressive and maintains safety.
+- *Equality Check:* The Equal method provides an efficient way to compare two Option[T] instances, checking if they represent the same state and hold equal values.
+- *Generics-Based:* With Generics introduced in Go, the module offers a powerful, type-safe alternative to previous ways of handling optional values.
+- *Json serialization and deserialization:* Build-in json support
 
 ## Example
 
@@ -167,6 +177,20 @@ carPlateOpt := option.FlatMap[Car, string](u.car, func(c Car) option.Option[stri
 | NonEmpty()          |             checks if value is set              |
 | String()            |              string representation              |
 `* - empty value will panic`
+
+## Pattern matching
+
+Pattern matching in this context is the ability to check and manipulate the value inside the Option[T] type safely without having to manually check the existence of the value every time.
+
+``` 
+func getCarPlate(plateNumber Option[string]) string {
+	return Match(plateNumber, func(p string) string {
+		return p
+	}, func() string {
+		return "N/A"
+	})
+}
+```
 
 ## Json serialization and deserialization
 
