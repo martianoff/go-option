@@ -17,7 +17,7 @@ func (s optSome[T]) GetOrElse(v T) T {
 }
 
 func (s optSome[T]) OrElse(opt Option[T]) Option[T] {
-	return s
+	return Option[T]{s}
 }
 
 func (s optSome[T]) Empty() bool {

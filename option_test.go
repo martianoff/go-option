@@ -17,38 +17,38 @@ func TestFlatMap(t *testing.T) {
 		want Option[bool]
 	}{
 		{
-			name: "FlatMap with optSome[optSome[true]] get converted to optSome[true]",
+			name: "FlatMap with Some[Some[true]] get converted to Some[true]",
 			args: args{
-				opt: optSome[Option[bool]]{
-					optSome[bool]{true},
-				},
+				opt: Some[Option[bool]](
+					Some[bool](true),
+				),
 				mapper: func(o1 Option[bool]) Option[bool] {
 					return o1
 				},
 			},
-			want: optSome[bool]{true},
+			want: Some[bool](true),
 		},
 		{
-			name: "FlatMap with optSome[optNone] get converted to optNone",
+			name: "FlatMap with Some[None] get converted to None",
 			args: args{
-				opt: optSome[Option[bool]]{
-					optNone[bool]{},
-				},
+				opt: Some[Option[bool]](
+					None[bool](),
+				),
 				mapper: func(o1 Option[bool]) Option[bool] {
 					return o1
 				},
 			},
-			want: optNone[bool]{},
+			want: None[bool](),
 		},
 		{
-			name: "FlatMap with optNone[Option[true]] get converted to optNone",
+			name: "FlatMap with None[Option[true]] get converted to None",
 			args: args{
-				opt: optNone[Option[bool]]{},
+				opt: None[Option[bool]](),
 				mapper: func(o1 Option[bool]) Option[bool] {
 					return o1
 				},
 			},
-			want: optNone[bool]{},
+			want: None[bool](),
 		},
 	}
 	for _, tt := range tests {
@@ -71,24 +71,24 @@ func TestMap(t *testing.T) {
 		want Option[string]
 	}{
 		{
-			name: "Map with optSome[int] get converted to optSome[string]",
+			name: "Map with Some[int] get converted to Some[string]",
 			args: args{
-				opt: optSome[int]{4},
+				opt: Some[int](4),
 				mapper: func(i int) string {
 					return strconv.Itoa(i)
 				},
 			},
-			want: optSome[string]{"4"},
+			want: Some[string]("4"),
 		},
 		{
-			name: "Map with optNone[int] get converted to optNone[string]",
+			name: "Map with None[int] get converted to None[string]",
 			args: args{
-				opt: optNone[int]{},
+				opt: None[int](),
 				mapper: func(i int) string {
 					return strconv.Itoa(i)
 				},
 			},
-			want: optNone[string]{},
+			want: None[string](),
 		},
 	}
 	for _, tt := range tests {
@@ -110,20 +110,65 @@ func TestToOption(t *testing.T) {
 		want Option[map[int]string]
 	}{
 		{
-			name: "NewOption with value is converted to optSome(value)",
+			name: "NewOption with value is converted to Some(value)",
 			args: args{v: map[int]string{}},
-			want: optSome[map[int]string]{map[int]string{}},
+			want: Some[map[int]string](map[int]string{}),
 		},
 		{
-			name: "NewOption without value is converted to optNone",
+			name: "NewOption without value is converted to None",
 			args: args{v: nil},
-			want: optNone[map[int]string]{},
+			want: None[map[int]string](),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := NewOption(tt.args.v); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewOption() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestOptionEqual(t *testing.T) {
+	type T = int
+
+	cases := []struct {
+		name     string
+		x        Option[T]
+		y        Option[T]
+		expected bool
+	}{
+		{
+			name:     "Both options are None, should be equal",
+			x:        None[T](),
+			y:        None[T](),
+			expected: true,
+		},
+		{
+			name:     "One is None, one is Some, should not be equal",
+			x:        None[T](),
+			y:        Some[T](1),
+			expected: false,
+		},
+		{
+			name:     "Both are Some and same value, should be equal",
+			x:        Some[T](1),
+			y:        Some[T](1),
+			expected: true,
+		},
+		{
+			name:     "Both are Some but different values, should not be equal",
+			x:        Some[T](1),
+			y:        Some[T](2),
+			expected: false,
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			actual := tc.x.Equal(tc.y)
+			if actual != tc.expected {
+				t.Errorf("Equal() = %v, want %v", actual, tc.expected)
 			}
 		})
 	}

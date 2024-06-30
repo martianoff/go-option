@@ -87,6 +87,18 @@ carPlateOpt := option.FlatMap[Car, string](u.car, func(c Car) option.Option[stri
 | String() |              string representation              |
 `* - empty value will panic`
 
+## Json serialization and deserialization
+
+Build-in serialization and deserialization
+
+## Custom equality
+
+Custom equality powered by `github.com/google/go-cmp/cmp`
+
+```
+cmp.Equal(Some(11), Some(11)) // returns true
+```
+
 ---
 ## Testing
 
