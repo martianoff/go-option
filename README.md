@@ -77,14 +77,16 @@ carPlateOpt := option.FlatMap[Car, string](u.car, func(c Car) option.Option[stri
 
 ## Methods of Option
 
-| Method |                   Description                   |
-|--------|:-----------------------------------------------:|
-| Get() |         gets underlying value (unsafe*)         |
+| Method              |                   Description                   |
+|---------------------|:-----------------------------------------------:|
+| Get()               |         gets underlying value (unsafe*)         |
 | GetOrElse(fallback) | gets underlying value or returns fallback value |
 | OrElse(fallbackOpt) |   returns fallback option if option is empty    |
-| Empty() |            checks if value is empty             |
-| NonEmpty() |             checks if value is set              |
-| String() |              string representation              |
+| Empty()             |            checks if value is empty             |
+| NonEmpty()          |             checks if value is set              |
+| String()            |              string representation              |
+| Map()               |           transform to another option           |
+| FlatMap()           |               compose two options               |
 `* - empty value will panic`
 
 ## Json serialization and deserialization
