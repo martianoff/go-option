@@ -24,7 +24,7 @@ Set an empty value if v is nil, otherwise set non-empty value
 v := option.NewOption[int](10)
 ```
 
-Remap one option to another option
+Transform underlying value of option to non option value
 ```
 import "github.com/martianoff/go-option"
 
@@ -45,7 +45,7 @@ carNameOpt := option.Map[Car, string](carOpt, func(c Car) string {
 })
 ```
 
-Option composition
+Option composition. Transform underlying value of option to another option value
 ```
 import "github.com/martianoff/go-option"
 
@@ -85,8 +85,6 @@ carPlateOpt := option.FlatMap[Car, string](u.car, func(c Car) option.Option[stri
 | Empty()             |            checks if value is empty             |
 | NonEmpty()          |             checks if value is set              |
 | String()            |              string representation              |
-| Map()               |           transform to another option           |
-| FlatMap()           |               compose two options               |
 `* - empty value will panic`
 
 ## Json serialization and deserialization
