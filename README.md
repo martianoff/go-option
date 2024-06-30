@@ -19,7 +19,7 @@ The idea is based on Scala Option and Java Optional. The package allows to creat
 
 ## Example
 
-Let's check an example without using option,
+Let's check an example without using options
 
 ```
 type userModel struct {
@@ -55,7 +55,7 @@ func getUser(user userModel) User {
 }
 ```
 
-Now the same code with option
+Now the same code with options
 
 ``` 
 type userModel struct {
