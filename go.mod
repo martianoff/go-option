@@ -1,4 +1,4 @@
-module github.com/maksimru/go-option
+module github.com/martianoff/go-option
 
 go 1.21.1
 

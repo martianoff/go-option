@@ -1,7 +1,7 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/maksimru/go-option/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/maksimru/go-option/tree/main)
-[![codecov](https://codecov.io/gh/maksimru/go-option/graph/badge.svg?token=NQICPHBEUQ)](https://codecov.io/gh/maksimru/go-option)
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/maksimru/go-option)](https://pkg.go.dev/github.com/maksimru/go-option)
-[![Go Report Card](https://goreportcard.com/badge/github.com/maksimru/go-option)](https://goreportcard.com/report/github.com/maksimru/go-option)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/martianoff/go-option/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/martianoff/go-option/tree/main)
+[![codecov](https://codecov.io/gh/martianoff/go-option/graph/badge.svg?token=NQICPHBEUQ)](https://codecov.io/gh/martianoff/go-option)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/martianoff/go-option)](https://pkg.go.dev/github.com/martianoff/go-option)
+[![Go Report Card](https://goreportcard.com/badge/github.com/martianoff/go-option)](https://goreportcard.com/report/github.com/martianoff/go-option)
 
 # Go Option
 
@@ -26,7 +26,7 @@ v := option.NewOption[int](10)
 
 Remap one option to another option
 ```
-import "github.com/maksimru/go-option"
+import "github.com/martianoff/go-option"
 
 type Car struct {
     name        string
@@ -47,7 +47,7 @@ carNameOpt := option.Map[Car, string](carOpt, func(c Car) string {
 
 Option composition
 ```
-import "github.com/maksimru/go-option"
+import "github.com/martianoff/go-option"
 
 type Car struct {
     name        string
