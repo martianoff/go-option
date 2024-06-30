@@ -38,6 +38,13 @@ func NewOption[T any](o T) Option[T] {
 	return Option[T]{optSome[T]{o}}
 }
 
+func NewOptionFromPointer[T any](o *T) Option[T] {
+	if o == nil {
+		return None[T]()
+	}
+	return Some[T](*o)
+}
+
 func Map[T1, T2 any](opt Option[T1], mapper func(T1) T2) Option[T2] {
 	if opt.NonEmpty() {
 		return Option[T2]{optSome[T2]{mapper(opt.Get())}}

@@ -129,6 +129,39 @@ func TestToOption(t *testing.T) {
 	}
 }
 
+func TestNewOptionFromPointer(t *testing.T) {
+	type T = int
+
+	cases := []struct {
+		name     string
+		input    *T
+		expected Option[T]
+	}{
+		{
+			name:     "Test with nil pointer should return None",
+			input:    nil,
+			expected: None[T](),
+		},
+		{
+			name: "Test with valid pointer should return Some",
+			input: func() *T {
+				var v T = 5
+				return &v
+			}(),
+			expected: Some[T](5),
+		},
+	}
+
+	for _, tt := range cases {
+		t.Run(tt.name, func(t *testing.T) {
+			result := NewOptionFromPointer(tt.input)
+			if !result.Equal(tt.expected) {
+				t.Errorf("Expected: %v, got: %v", tt.expected, result)
+			}
+		})
+	}
+}
+
 func TestOptionEqual(t *testing.T) {
 	type T = int
 

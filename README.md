@@ -24,6 +24,12 @@ Set an empty value if v is nil, otherwise set non-empty value
 v := option.NewOption[int](10)
 ```
 
+Convert pointer to an object to an option
+```
+v := option.NewOptionFromPointer[Car](nil) // None[Car]
+v := option.NewOptionFromPointer[Car](&Car{}) // Some[Car]
+```
+
 Transform underlying value of option to non option value
 ```
 import "github.com/martianoff/go-option"
