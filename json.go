@@ -8,14 +8,14 @@ import (
 // UnmarshalJSON - custom JSON unmarshalling for Option
 func (opt *Option[T]) UnmarshalJSON(data []byte) error {
 	if strings.ToLower(string(data)) == "null" {
-		*opt = Option[T]{None[T]()}
+		*opt = None[T]()
 		return nil
 	}
 	var v T
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
-	*opt = Option[T]{Some[T](v)}
+	*opt = Some[T](v)
 	return nil
 }
 
