@@ -37,9 +37,9 @@ func NewOption[T any](o T) Option[T] {
 		v.Kind() == reflect.Map ||
 		v.Kind() == reflect.Chan ||
 		v.Kind() == reflect.Func) && v.IsNil() {
-		return Option[T]{optNone[T]{}}
+		return None[T]()
 	}
-	return Option[T]{optSome[T]{o}}
+	return Some(o)
 }
 
 // NewOptionFromPointer creates an Option from input pointer 'o'.
@@ -55,9 +55,9 @@ func NewOptionFromPointer[T any](o *T) Option[T] {
 // If 'opt' is a None, the function 'mapper' is not applied.
 func Map[T1, T2 any](opt Option[T1], mapper func(T1) T2) Option[T2] {
 	if opt.NonEmpty() {
-		return Option[T2]{optSome[T2]{mapper(opt.Get())}}
+		return Some(mapper(opt.Get()))
 	} else {
-		return Option[T2]{optNone[T2]{}}
+		return None[T2]()
 	}
 }
 
@@ -67,7 +67,7 @@ func FlatMap[T1, T2 any](opt Option[T1], mapper func(T1) Option[T2]) Option[T2] 
 	if opt.NonEmpty() {
 		return mapper(opt.Get())
 	} else {
-		return Option[T2]{optNone[T2]{}}
+		return None[T2]()
 	}
 }
 
